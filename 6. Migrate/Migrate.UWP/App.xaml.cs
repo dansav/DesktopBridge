@@ -1,22 +1,12 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
 using Migrate.UWP.Messages;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.AppService;
 using Windows.ApplicationModel.Background;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace Migrate.UWP
@@ -113,16 +103,16 @@ namespace Migrate.UWP
         /// <summary>
         /// Initializes the app service on the host process 
         /// </summary>
-protected override void OnBackgroundActivated(BackgroundActivatedEventArgs args)
-{
-    base.OnBackgroundActivated(args);
-    if (args.TaskInstance.TriggerDetails is AppServiceTriggerDetails)
-    {
-        BackgroundTaskDeferral appServiceDeferral = args.TaskInstance.GetDeferral();
-        AppServiceTriggerDetails details = args.TaskInstance.TriggerDetails as AppServiceTriggerDetails;
-        Connection = details.AppServiceConnection;
-        Messenger.Default.Send<ConnectionReadyMessage>(new ConnectionReadyMessage());
-    }
-}
+        protected override void OnBackgroundActivated(BackgroundActivatedEventArgs args)
+        {
+            base.OnBackgroundActivated(args);
+            if (args.TaskInstance.TriggerDetails is AppServiceTriggerDetails)
+            {
+                BackgroundTaskDeferral appServiceDeferral = args.TaskInstance.GetDeferral();
+                AppServiceTriggerDetails details = args.TaskInstance.TriggerDetails as AppServiceTriggerDetails;
+                Connection = details.AppServiceConnection;
+                Messenger.Default.Send<ConnectionReadyMessage>(new ConnectionReadyMessage());
+            }
+        }
     }
 }
